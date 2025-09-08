@@ -22,6 +22,7 @@ namespace MFA.Windows
         {
             currentUser = user;
             lblWelcome.Content = $"Welcome {currentUser.FullName} ({currentUser.Role})";
+            SetupPermissions();
         }
         private void LoadStudentsTodayChart()
         {
