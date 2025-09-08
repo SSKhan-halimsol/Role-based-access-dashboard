@@ -16,6 +16,7 @@ namespace MFA.Windows
             LoadStudents();
             LoadStudentsTodayChart();
             LoadStudentPieChart();
+            SetupPermissions();
         }
 
         public DashboardWindow(User user) : this()
