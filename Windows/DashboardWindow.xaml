@@ -22,30 +22,29 @@
                    HorizontalAlignment="Center"
                    Margin="10"/>
 
-                <TextBlock Text="--------------------------------------" Foreground="White"/>
                 <Button x:Name="btnAddStudent" Content="Add Student 👨‍🎓" 
-                    Height="40" Margin="5"
+                    Height="40" Margin="10"
                     Background="#34495E" 
                     Foreground="White" 
                     Click="btnAddStudent_Click"/>
 
 
                 <Button x:Name="btnUpdateStudent" Content="Update Student 👨‍🎓" 
-                    Height="40" Margin="5"
+                    Height="40" Margin="10"
                     Background="#34495E" 
                     Foreground="White" 
                     Click="btnUpdateStudent_Click"/>
 
 
                 <Button x:Name="btnDeleteStudent" Content="Delete Student ✂" 
-                    Height="40" Margin="5"
+                    Height="40" Margin="10"
                     Background="#34495E" 
                     Foreground="White" 
                     Click="btnDeleteStudent_Click"/>
 
 
                 <Button x:Name="btnViewStudents" Content="View Students 📋" 
-                    Height="40" Margin="5"
+                    Height="40" Margin="10"
                     Background="#34495E" 
                     Foreground="White" 
                     Click="btnViewStudents_Click"/>
@@ -99,14 +98,31 @@
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"/>
             </Grid>
-
+            
+            
+            <TextBox x:Name="txtSearch"
+         Grid.Row="2"
+         Width="200"
+         Height="25"
+         Margin="0,5,0,5"
+         VerticalAlignment="Top"
+         HorizontalAlignment="Left"
+         TextChanged="txtSearch_TextChanged"/>
+            <TextBlock x:Name="txtPlaceholder"
+               Text="🔍 Search students..."
+               Foreground="Gray"
+               Margin="0,5,0,5"
+               Grid.Row="2"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Left"
+               IsHitTestVisible="False"/>
+            
             <DataGrid x:Name="dgStudents"
           Grid.Row="2"
           AutoGenerateColumns="False"
           Background="White"
           Foreground="Black"
           Margin="0"
-          Height="300"
           Width="650"
           CanUserAddRows="False"
           IsReadOnly="True">

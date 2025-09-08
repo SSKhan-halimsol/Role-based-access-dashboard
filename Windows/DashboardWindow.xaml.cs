@@ -2,7 +2,9 @@
 using OxyPlot;
 using OxyPlot.Series;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MFA.Windows
 {
@@ -24,6 +26,48 @@ namespace MFA.Windows
             lblWelcome.Content = $"Welcome {currentUser.FullName} ({currentUser.Role})";
             SetupPermissions();
         }
+
+        private List<Student> allStudents = new List<Student>();
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadStudents(); // load once when window opens
+        }
+
+        private void LoadStudents()
+        {
+            allStudents = Db.GetStudentsPaged(1, 20) ?? new List<Student>();
+            dgStudents.ItemsSource = allStudents;
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (allStudents == null || allStudents.Count == 0)
+                return;
+
+            string searchText = txtSearch.Text.Trim().ToLower();
+            txtPlaceholder.Visibility = string.IsNullOrWhiteSpace(txtSearch.Text)
+            ? Visibility.Visible
+            : Visibility.Hidden;
+            if (string.IsNullOrEmpty(searchText))
+            {
+                dgStudents.ItemsSource = allStudents;
+            }
+            else
+            {
+                var filtered = allStudents
+                    .Where(s =>
+                        (!string.IsNullOrEmpty(s.RollNo) && s.RollNo.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(s.Name) && s.Name.ToLower().Contains(searchText)) ||
+                        (!string.IsNullOrEmpty(s.FatherName) && s.FatherName.ToLower().Contains(searchText)) ||
+                        s.EnrollmentDate.ToString("d").Contains(searchText)
+                    )
+                    .ToList();
+
+                dgStudents.ItemsSource = filtered;
+            }
+        }
+
         private void LoadStudentsTodayChart()
         {
             var model = new OxyPlot.PlotModel { Title = "Students added today" };
@@ -137,12 +181,6 @@ namespace MFA.Windows
         {
             ViewStudentsWindow win = new ViewStudentsWindow();
             win.Show();
-        }
-
-        private void LoadStudents()
-        {
-            List<Student> students = Db.GetStudentsPaged(1, 50);
-            dgStudents.ItemsSource = students;
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)

@@ -37,6 +37,7 @@ namespace MFA.Windows
                 if (result)
                 {
                     MessageBox.Show("Student added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.DialogResult = true;
                     this.Close();
                 }
                 else

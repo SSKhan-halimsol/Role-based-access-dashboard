@@ -14,7 +14,7 @@ namespace MFA.Windows
 
         private void LoadStudents()
         {
-            List<Student> students = Db.GetStudentsPaged(1, 20);
+            List<Student> students = Db.GetStudentsPaged(1, 100);
             dgStudents.ItemsSource = students;
         }
         private void return_Click(object sender, RoutedEventArgs e)
