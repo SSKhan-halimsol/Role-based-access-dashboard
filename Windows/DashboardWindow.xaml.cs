@@ -17,13 +17,13 @@ namespace MFA.Windows
             LoadStudentsTodayChart();
             LoadStudentPieChart();
             SetupPermissions();
+
         }
 
         public DashboardWindow(User user) : this()
         {
             currentUser = user;
             lblWelcome.Content = $"Welcome {currentUser.FullName} ({currentUser.Role})";
-            SetupPermissions();
         }
         private void LoadStudentsTodayChart()
         {
@@ -42,6 +42,7 @@ namespace MFA.Windows
             lineSeries.Points.Add(new OxyPlot.DataPoint(14, 15)); // 2 PM → 15 students
             lineSeries.Points.Add(new OxyPlot.DataPoint(16, 18)); // 4 PM → 18 students
             lineSeries.Points.Add(new OxyPlot.DataPoint(18, 10)); // 6 PM → 10 students
+            lineSeries.Points.Add(new OxyPlot.DataPoint(20, 8));
 
             model.Series.Add(lineSeries);
 
